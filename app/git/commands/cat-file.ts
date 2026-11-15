@@ -27,7 +27,7 @@ class CatFileCommand {
 
         // check if path to object file exists
         if (!existsSync(objectPath))
-            throw new Error(`fatal: Not a valid object name ${this.commitSHA}`);
+            throw new Error(`not a valid object name ${this.commitSHA}`);
 
         // read and decompress object
         const compressedContent = readFileSync(objectPath);

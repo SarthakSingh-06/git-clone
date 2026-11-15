@@ -1,6 +1,8 @@
-import { CatFileCommand } from "./commands";
+import {
+    CatFileCommand, HashObjectCommand,
+} from "./commands";
 
-type GitCommand = CatFileCommand;
+type GitCommand = CatFileCommand | HashObjectCommand;
 
 class GitClient {
     run(command: GitCommand) {

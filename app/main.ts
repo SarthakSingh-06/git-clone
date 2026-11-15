@@ -4,7 +4,9 @@ import { join as joinPaths } from "node:path";
 import { gitClient } from "./git/client";
 
 // Commands
-import { CatFileCommand } from "./git/commands";
+import {
+    CatFileCommand, HashObjectCommand,
+} from "./git/commands";
 
 // get the command
 const command: string = process.argv[2] || ""; // git <COMMAND>
@@ -16,6 +18,10 @@ switch (command) {
 
     case "cat-file":
         handleCatFileCommand();
+        break;
+
+    case "hash-object":
+        handleHashObjectCommand();
         break;
 
     default:
@@ -45,5 +51,18 @@ function handleCatFileCommand() {
     const commitSHA: string = process.argv[4] || "";
 
     const command = new CatFileCommand(flag, commitSHA);
+    gitClient.run(command);
+};
+
+function handleHashObjectCommand() {
+    let flag: string | null = process.argv[3] || "";
+    let filepath: string = process.argv[4] || "";
+
+    if (!filepath) {
+        filepath = flag;
+        flag = null;
+    };
+    
+    const command = new HashObjectCommand(filepath, flag);
     gitClient.run(command);
 };
