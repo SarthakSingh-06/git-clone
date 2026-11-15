@@ -6,7 +6,8 @@ import { gitClient } from "./git/client";
 // Commands
 import {
     CatFileCommand, HashObjectCommand,
-    LsTreeCommand, WriteTreeCommand
+    LsTreeCommand, WriteTreeCommand,
+    CommitTreeCommand,
 } from "./git/commands";
 
 // get the command
@@ -31,6 +32,10 @@ switch (command) {
 
     case "write-tree":
         handleWriteTreeCommand();
+        break;
+
+    case "commit-tree":
+        handleCommitTreeCommand();
         break;
 
     default:
@@ -92,5 +97,14 @@ function handleLsTreeCommand() {
 
 function handleWriteTreeCommand() {
     const command = new WriteTreeCommand();
+    gitClient.run(command); 
+}
+
+function handleCommitTreeCommand() {
+    let treeSHA: string = process.argv[3] || "";
+    let commitSHA: string = process.argv[5] || "";
+    let commitMessage: string = process.argv[7] || "";
+
+    const command = new CommitTreeCommand(treeSHA, commitSHA, commitMessage);
     gitClient.run(command); 
 }

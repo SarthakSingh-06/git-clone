@@ -1,9 +1,10 @@
 import {
     CatFileCommand, HashObjectCommand,
-    LsTreeCommand, WriteTreeCommand
+    LsTreeCommand, WriteTreeCommand,
+    CommitTreeCommand,
 } from "./commands";
 
-type GitCommand = CatFileCommand | HashObjectCommand | LsTreeCommand | WriteTreeCommand;
+type GitCommand = CatFileCommand | HashObjectCommand | LsTreeCommand | WriteTreeCommand | CommitTreeCommand;
 
 class GitClient {
     run(command: GitCommand) {
