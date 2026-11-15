@@ -6,10 +6,11 @@ import { gitClient } from "./git/client";
 // Commands
 import {
     CatFileCommand, HashObjectCommand,
+    LsTreeCommand
 } from "./git/commands";
 
 // get the command
-const command: string = process.argv[2] || ""; // git <COMMAND>
+const command: string = process.argv[2] || ""; // bun main.js <COMMAND>
 
 switch (command) {
     case "init":
@@ -22,6 +23,10 @@ switch (command) {
 
     case "hash-object":
         handleHashObjectCommand();
+        break;
+
+    case "ls-tree":
+        handleLsTreeCommand();
         break;
 
     default:
@@ -64,5 +69,19 @@ function handleHashObjectCommand() {
     };
     
     const command = new HashObjectCommand(filepath, flag);
+    gitClient.run(command);
+};
+
+function handleLsTreeCommand() {
+    let flag: string | null = process.argv[3] || "";
+    let sha: string = process.argv[4] || "";
+
+    if (!sha && flag === "--name-only") return;
+    if (!sha) {
+        sha = flag;
+        flag = null;
+    };
+
+    const command = new LsTreeCommand(sha, flag);
     gitClient.run(command);
 };
