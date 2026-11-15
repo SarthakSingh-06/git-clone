@@ -6,12 +6,9 @@
   "author": "Sarthak Singh",
   "type": "module",
   "main": "main.js",
-  "scripts": {
-    "dev": "tsc-watch --onSuccess \"bun dist/main.js\""
-  },
+  "scripts": {},
   "devDependencies": {
     "@types/node": "^26.6.6",
-    "tsc-watch": "^7.2.1",
     "typescript": "^7.0.2"
   }
 }
